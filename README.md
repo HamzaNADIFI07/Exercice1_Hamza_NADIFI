@@ -23,7 +23,7 @@ Aucune dépendance externe — tout repose sur la bibliothèque standard de Pyth
    cd Exercice1_Hamza_NADIFI
    ```
 2. S'ssurer d’avoir **Python 3.8+** installé.
-3. (Optionnel) Créer un **environnement virtuel** pour isoler le projet :
+3. Créer un **environnement virtuel** pour isoler le projet :
 
    ```bash
    python3 -m venv env
@@ -35,46 +35,35 @@ Aucune dépendance externe — tout repose sur la bibliothèque standard de Pyth
 
 ## Utilisation
 
-### Ajouter une tâche
-
+1. Vérifie que l’API répond :
 ```bash
-python main.py add "Acheter du lait"
+curl http://127.0.0.1:5000/health
 ```
-
-### Afficher la liste des tâches
-
+- Retour:
+```json
+{"status": "ok"}
+```
+2. Liste les tâches :
 ```bash
-python main.py list
+curl http://127.0.0.1:5000/api/tasks
 ```
-
-Exemple :
-
-```
-[1] ❌ Acheter du lait (créée le 2025-10-14 14:32:00)
-```
-
-### Marquer une tâche comme terminée
-
+3. Ajoute une tâche :
 ```bash
-python main.py done 1
+curl -X POST http://127.0.0.1:5000/api/tasks \
+     -H "Content-Type: application/json" \
+     -d '{"title":"Apprendre Flask"}'
 ```
 
-Affiche :
-
-```
-✅ Tâche #1 marquée comme terminée.
-```
-
-### Supprimer une tâche
-
+4. Modifie une tâche :
 ```bash
-python main.py delete 1
+curl -X PATCH http://127.0.0.1:5000/api/tasks/1 \
+     -H "Content-Type: application/json" \
+     -d '{"done": true}'
 ```
 
-Affiche :
-
-```
-🗑️ Tâche supprimée : Acheter du lait
+5. Supprime une tâche :
+```bash
+curl -X DELETE http://127.0.0.1:5000/api/tasks/1
 ```
 
 ---
