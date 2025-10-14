@@ -11,8 +11,6 @@ def main():
     add = sub.add_parser("add", help="Ajouter une tâche")
     add.add_argument("title")
 
-    done = sub.add_parser("done", help="Marquer une tâche comme terminée")
-    done.add_argument("index", type=int)
 
     delete = sub.add_parser("delete", help="Supprimer une tâche")
     delete.add_argument("index", type=int)
@@ -23,9 +21,7 @@ def main():
     if args.command == "add":
         controller.add_task(args.title)
     elif args.command == "list":
-        controller.list_tasks()
-    elif args.command == "done":
-        controller.mark_done(args.index)
+        controller.display()
     elif args.command == "delete":
         controller.delete_task(args.index)
     else:

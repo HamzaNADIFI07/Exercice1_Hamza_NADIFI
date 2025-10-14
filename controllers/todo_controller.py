@@ -24,16 +24,9 @@ class ToDoController:
         self._save()
         self.view.show_message(f"✅ Tâche ajoutée : {title}")
 
-    def list_tasks(self):
+    def display(self):
         self.view.show_tasks(self.tasks)
 
-    def mark_done(self, index):
-        try:
-            self.tasks[index - 1].done = True
-            self._save()
-            self.view.show_message(f"✅ Tâche #{index} marquée comme terminée.")
-        except IndexError:
-            self.view.show_message("❌ Numéro de tâche invalide.")
 
     def delete_task(self, index):
         try:
