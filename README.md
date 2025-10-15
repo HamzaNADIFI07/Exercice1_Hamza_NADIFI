@@ -77,17 +77,6 @@ curl -X DELETE http://127.0.0.1:5000/api/tasks/1
 
 ---
 
-## Fichier de sauvegarde
-
-Les tâches sont automatiquement sauvegardées dans le fichier :
-
-```
-data/tasks.json
-```
-
-Ce fichier est créé automatiquement si nécessaire.
-
----
 
 ## Structure du projet
 
@@ -100,8 +89,6 @@ EXERCICE1_HAMZA_NADIFI/
 │   └── cli_view.py             # View : gère l’affichage et les interactions utilisateur
 ├── controllers/
 │   └── todo_controller.py      # Controller : relie la logique (model + view)
-├── data/
-│   └── tasks.json              # Fichier de sauvegarde
 └── README.md
 ```
 
