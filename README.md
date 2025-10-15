@@ -18,17 +18,27 @@ Aucune dépendance externe — tout repose sur la bibliothèque standard de Pyth
 
 1. **Télécharger** ou **cloner** le projet :
 
-   ```bash
-   git clone https://github.com/ton-utilisateur/Exercice1_Hamza_NADIFI.git
-   cd Exercice1_Hamza_NADIFI
-   ```
+```bash
+git clone https://github.com/ton-utilisateur/Exercice1_Hamza_NADIFI.git
+cd Exercice1_Hamza_NADIFI
+```
 2. S'ssurer d’avoir **Python 3.8+** installé.
 3. Créer un **environnement virtuel** pour isoler le projet :
 
-   ```bash
-   python3 -m venv env
-   source env/bin/activate  # (Windows : env\Scripts\activate)
-   ```
+```bash
+python3 -m venv env
+source env/bin/activate  # (Windows : env\Scripts\activate)
+```
+4. Installe toutes les dépendances du projet (y compris Flask) :
+```bash
+pip install -r requirements.txt
+
+```
+5. Lance le serveur Flask :
+
+```bash
+python3 main.py
+```
 
 ---
 
@@ -83,7 +93,7 @@ Ce fichier est créé automatiquement si nécessaire.
 ## Structure du projet
 
 ```
-todolist_mvc/
+EXERCICE1_HAMZA_NADIFI/
 ├── main.py                     # Point d'entrée (Controller principal)
 ├── models/
 │   └── task.py                 # Model : définit la classe Task
@@ -109,19 +119,5 @@ Le projet respecte le modèle **MVC (Model–View–Controller)** :
 | **Controller** | Fait le lien entre Model et View      | `ToDoController`, gère les commandes utilisateur  |
 
 Cette séparation rend le code plus clair, maintenable et facile à faire évoluer.
-
----
-
-## Exemple complet
-
-```bash
-python main.py add "Reviser mes cours"
-python main.py add "Faire du sport"
-python main.py list
-python main.py done 1
-python main.py list
-python main.py delete 2
-python main.py list
-```
 
 ---
