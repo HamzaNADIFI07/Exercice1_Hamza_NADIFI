@@ -121,3 +121,31 @@ Le projet respecte le modèle **MVC (Model–View–Controller)** :
 Cette séparation rend le code plus clair, maintenable et facile à faire évoluer.
 
 ---
+
+## Rendu des manipulations de l'API via Postman:
+
+#### Vérification de l’état de l’API
+
+![health](./assets/health.png)
+
+
+#### Liste toutes les tâches
+
+
+![health](./assets/listTasks.png)
+
+#### Crée une nouvelle tâche
+
+![health](./assets/newTask.png)
+
+#### Récupère une tâche par ID
+
+![health](./assets/getTaskById.png)
+
+#### Met à jour une tâche (titre )
+
+![health](./assets/updateTask.png)
+
+#### Supprime une tâche par ID
+
+![health](./assets/deleteTaskById.png)

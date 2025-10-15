@@ -1,94 +1,54 @@
-import json, os
 from models.task import Task
-
-DATA_FILE = "data/tasks.json"
 
 class ToDoController:
     def __init__(self):
-        self.db = self._load_db()
-
-    def _ensure_data_dir(self):
-        os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
-
-    def _load_db(self):
-        self._ensure_data_dir()
-        if not os.path.exists(DATA_FILE):
-            return {"next_id": 1, "tasks": []}
-
-        with open(DATA_FILE, "r", encoding="utf-8") as f:
-            raw = json.load(f)
-        if isinstance(raw, list):
-            tasks = []
-            next_id = 1
-            for t in raw:
-                task = Task.from_dict(t)
-                task.id = next_id
-                tasks.append(task)
-                next_id += 1
-            return {"next_id": next_id, "tasks": tasks}
-
-        tasks = [Task.from_dict(d) for d in raw.get("tasks", [])]
-        next_id = raw.get("next_id", 1)
-        changed = False
-        for t in tasks:
-            if t.id is None:
-                t.id = next_id
-                next_id += 1
-                changed = True
-        if changed:
-            return {"next_id": next_id, "tasks": tasks}
-        return {"next_id": next_id, "tasks": tasks}
-
-    def _save_db(self):
-        self._ensure_data_dir()
-        payload = {
-            "next_id": self.db["next_id"],
-            "tasks": [t.to_dict() for t in self.db["tasks"]],
-        }
-        with open(DATA_FILE, "w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=2)
+        self.next_id = 1
+        self.tasks = []
 
     def list_tasks(self):
-        return list(self.db["tasks"])
+        """Retourne la liste de toutes les tâches"""
+        return list(self.tasks)
 
     def _find_index_by_id(self, task_id: int):
-        for i, t in enumerate(self.db["tasks"]):
+        """Trouve la position d'une tâche via son ID"""
+        for i, t in enumerate(self.tasks):
             if t.id == task_id:
                 return i
         return -1
 
     def add_task(self, title: str):
+        """Ajoute une nouvelle tâche"""
         title = (title or "").strip()
         if not title:
             raise ValueError("Le titre ne peut pas être vide.")
-        new = Task(title=title, id=self.db["next_id"])
-        self.db["next_id"] += 1
-        self.db["tasks"].append(new)
-        self._save_db()
-        return new
+        new_task = Task(title=title, id=self.next_id)
+        self.tasks.append(new_task)
+        self.next_id += 1
+        return new_task
 
     def get_task(self, task_id: int):
+        """Récupère une tâche par son ID"""
         idx = self._find_index_by_id(task_id)
         if idx < 0:
             raise KeyError("Tâche introuvable.")
-        return self.db["tasks"][idx]
-
+        return self.tasks[idx]
 
     def update_title(self, task_id: int, title: str):
+        """Met à jour le titre d'une tâche"""
         title = (title or "").strip()
         if not title:
             raise ValueError("Le titre ne peut pas être vide.")
         idx = self._find_index_by_id(task_id)
         if idx < 0:
             raise KeyError("Tâche introuvable.")
-        self.db["tasks"][idx].title = title
-        self._save_db()
-        return self.db["tasks"][idx]
+        self.tasks[idx].title = title
+        return self.tasks[idx]
+
 
     def delete_task(self, task_id: int):
+        """Supprime une tâche par ID"""
         idx = self._find_index_by_id(task_id)
         if idx < 0:
             raise KeyError("Tâche introuvable.")
-        removed = self.db["tasks"].pop(idx)
-        self._save_db()
+        removed = self.tasks.pop(idx)
         return removed.title
