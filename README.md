@@ -68,7 +68,6 @@ curl -X POST http://127.0.0.1:5000/api/tasks \
 ```bash
 curl -X PATCH http://127.0.0.1:5000/api/tasks/1 \
      -H "Content-Type: application/json" \
-     -d '{"done": true}'
 ```
 
 5. Supprime une tâche :
